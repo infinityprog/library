@@ -1,9 +1,7 @@
 const {connection} = require("../../db/connection").module;
 
-
-
 const findNow = async () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         connection.query('SELECT * FROM passage where day = $1', [new Date().toLocaleDateString()], (error, result) => {
             if (error) {
                 console.log(error)
