@@ -1,4 +1,4 @@
-const {more} = require('./business/PassageService');
+const {more,findAllPassage} = require('./business/PassageService');
 
 const express = require('express');
 
@@ -7,12 +7,12 @@ const port = 3000;
 
 let incr = 0;
 
-app.get('/more', async (req, res) => {
+app.get('/passage/more', async (req, res) => {
     res.json(await more());
 });
 
-app.get('/moins', (req, res) => {
-    res.json(--incr);
+app.get('/passage', async (req, res) => {
+    res.json(await findAllPassage());
 });
 
 app.get('/reset', (req, res) => {

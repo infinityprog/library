@@ -25,8 +25,26 @@ const update = (number) => {
     connection.query('update passage set number = $1 where day = $2', [number, new Date().toLocaleDateString()])
 }
 
+const findAll = () => {
+    return new Promise(resolve => {
+        connection.query('SELECT * FROM passage', (error, result) => {
+            if (error) {
+                console.log(error)
+                throw error
+            }
+
+            if (result.rows.length !== 0) {
+                resolve(result.rows[0]);
+            }
+
+            resolve(null);
+        })
+    })
+}
+
 module.exports = {
     findNow,
     insert,
-    update
+    update,
+    findAll
 }

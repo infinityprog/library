@@ -1,4 +1,4 @@
-const {findNow, insert, update} = require('../persistance/dao/PassageDao');
+const {findNow, findAll, insert, update} = require('../persistance/dao/PassageDao');
 
 const more = async () => {
     return findNow().then(passage => {
@@ -14,6 +14,11 @@ const more = async () => {
     });
 }
 
+const findAllPassage = () => {
+    return findAll();
+}
+
 module.exports = {
-    more
+    more,
+    findAllPassage
 }
