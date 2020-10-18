@@ -1,18 +1,19 @@
-const {more,findAllPassage} = require('./business/PassageService');
+const PassageService = require('./business/PassageService');
 
 const express = require('express');
 
 const app = express();
 const port = 3000;
+const passageService = new PassageService();
 
 let incr = 0;
 
 app.get('/passage/more', async (req, res) => {
-    res.json(await more());
+    res.json(await passageService.more());
 });
 
 app.get('/passage', async (req, res) => {
-    res.json(await findAllPassage());
+    res.json(await passageService.findAll());
 });
 
 app.get('/reset', (req, res) => {

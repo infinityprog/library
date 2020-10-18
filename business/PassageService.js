@@ -1,24 +1,28 @@
-const {findNow, findAll, insert, update} = require('../persistance/dao/PassageDao');
+const PassageDao = require('../persistance/dao/PassageDao');
 
-const more = async () => {
-    return findNow().then(passage => {
-        console.log(passage)
+class PassageService {
 
-        if (passage === null || passage === undefined) {
-            insert();
-            return 1;
-        } else {
-            update(++passage.number)
-            return passage.number;
-        }
-    });
+    constructor() {
+        this.passageDao = new PassageDao();
+    }
+
+    async more() {
+        return this.passageDao.findNow().then(passage => {
+            console.log(passage)
+
+            if (passage === null || passage === undefined) {
+                this.passageDao.insert();
+                return 1;
+            } else {
+                this.passageDao.update(++passage.number)
+                return passage.number;
+            }
+        });
+    }
+
+    findAll() {
+        return this.passageDao.findAll();
+    }
 }
 
-const findAllPassage = () => {
-    return findAll();
-}
-
-module.exports = {
-    more,
-    findAllPassage
-}
+module.exports = PassageService;
