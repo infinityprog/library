@@ -21,4 +21,4 @@ app.get('/reset', (req, res) => {
     res.json(incr);
 });
 
-app.listen(port, () => console.log(`run library api`))
+app.listen(port, () => console.log(`run library api on port ${port}!`))
