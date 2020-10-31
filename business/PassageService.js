@@ -20,10 +20,27 @@ class PassageService {
         });
     }
 
-    async day(){
+    async week(){
+        return {
+            labels:['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+            data:[28, 25, 35, 48, 20, 2, 0]
+        }
+    }
 
-        return [28, 25, 35, 48, 20, 2, 0];
+    async month(){
+        const data =[10,15];
+        const labels = Array.from({length: 31}, (_, i) => i + 1);
+        return {
+            labels,
+            data
+        }
+    }
 
+    async year(){
+        return {
+            labels:['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septemrbe','Octobre','Novembre','Décembre'],
+            data:[28, 25, 35, 48, 20, 2, 0, 0, 0, 0, 0, 0]
+        }
     }
 
     findAll() {

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <title>HELHa - Bibliothèque</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+</head>
+
+<body>
+
+<img src="https://www.helha.be/app/uploads/2014/04/logo-helha.png" width="350" height="180">
+
+<div style="width: 80%;">
+
+    <button onclick="UpdateChart('/passage/week','Nombre de personne dans la bibliothèque cette semaine')">
+        Cette semaine
+    </button>
+    <button onclick="UpdateChart('/passage/month','Nombre de personne dans la bibliothèque ce mois')">
+        Ce mois
+    </button>
+    <button onclick="UpdateChart('/passage/year','Nombre de personne dans la bibliothèque cette année')">
+        Cette année
+    </button>
+    <canvas id="myChart" width="360" height="90"></canvas>
+
+</div>
+
+<script>
+    var chart;
+
+    function UpdateChart(url,title){
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        // récup de donnée (requête ajax)
+
+        fetch(url).then(response=>response.json()).then((json) => {
+
+            //convert json en donnée correcte
+
+            var chartData = {
+                // The type of chart we want to create
+                type: 'bar',
+                // The data for our dataset
+                data: {
+                    labels: json.labels,
+                    datasets: [{
+                        label: 'Personnes',
+                        backgroundColor: "rgba(255,99,132,0.2)",
+                        borderColor: "rgba(255,99,132,1)",
+                        borderWidth: 2,
+                        hoverBackgroundColor: "rgba(255,99,132,0.6)",
+                        hoverBorderColor: "rgba(255,99,132,1)",
+                        data: json.data
+                    }]
+                },
+                // Configuration options go here
+                options: {
+                    scales:{
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true}
+                        }]
+                    },
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: title
+                    }
+                }
+            }
+            if (chart){
+                chart.destroy();
+            }
+            chart = new Chart(ctx, chartData);
+        })
+    }
+
+    UpdateChart('/passage/week','Nombre de personne dans la bibliothèque par semaine');
+
+</script>
+
+</body>
+
+</html>
