@@ -10,6 +10,10 @@ app.get('/passage/more', async (req, res) => {
     res.json(await passageService.more());
 });
 
+app.get('/passage/day', async (req, res) => {
+    res.json(await passageService.day());
+});
+
 app.get('/passage', async (req, res) => {
     res.json(await passageService.findAll());
 });

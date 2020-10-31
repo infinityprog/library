@@ -20,6 +20,12 @@ class PassageService {
         });
     }
 
+    async day(){
+
+        return [28, 25, 35, 48, 20, 2, 0];
+
+    }
+
     findAll() {
         return this.passageDao.findAll();
     }
