@@ -29,10 +29,10 @@
 </div>
 
 <script>
-    var chart;
+    let chart;
 
     function UpdateChart(url,title){
-        var ctx = document.getElementById('myChart').getContext('2d');
+        const ctx = document.getElementById('myChart').getContext('2d');
 
         // récup de donnée (requête ajax)
 
@@ -40,7 +40,7 @@
 
             //convert json en donnée correcte
 
-            var chartData = {
+            const chartData = {
                 // The type of chart we want to create
                 type: 'bar',
                 // The data for our dataset
