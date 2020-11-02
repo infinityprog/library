@@ -11,23 +11,25 @@
 </head>
 
 <body style="background-color:#e3e3e3;">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Haute_%C3%89cole_Louvain_en_Hainaut_%28logo%29.svg/1280px-Haute_%C3%89cole_Louvain_en_Hainaut_%28logo%29.svg.png" width="486" height="180">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Haute_%C3%89cole_Louvain_en_Hainaut_%28logo%29.svg/1280px-Haute_%C3%89cole_Louvain_en_Hainaut_%28logo%29.svg.png" width="486" height="180" class="img">
 
 <div style="width: 80%;">
 
-    <a href="#" class="bouton" onclick="UpdateChart('/passage/day','line','Nombre de personne dans la bibliothèque en ce jour')">
+    <a class="button" onclick="UpdateChart('/passage/day','line','Nombre de personnes dans la bibliothèque en ce jour')">
         Aujourd'hui
     </a>
-    <a href="#" class="bouton" onclick="UpdateChart('/passage/week','bar','Nombre de personne dans la bibliothèque cette semaine')">
+    <a class="button" onclick="UpdateChart('/passage/week','bar','Nombre de personnes dans la bibliothèque cette semaine')">
         Cette semaine
     </a>
-    <a href="#" class="bouton" onclick="UpdateChart('/passage/month','bar','Nombre de personne dans la bibliothèque ce mois')">
+    <a class="button" onclick="UpdateChart('/passage/month','bar','Nombre de personnes dans la bibliothèque ce mois')">
         Ce mois
     </a>
-    <a href="#" class="bouton" onclick="UpdateChart('/passage/year','bar','Nombre de personne dans la bibliothèque cette année')">
+    <a class="button" onclick="UpdateChart('/passage/year','bar','Nombre de personnes dans la bibliothèque cette année')">
         Cette année
     </a>
-    <canvas id="myChart" width="500" height="240"></canvas>
+    <a class="mot" > Made by : Louis VAN DE VELDE </a>
+
+    <canvas id="myChart" width="500" height="210"></canvas>
 
 </div>
 
@@ -58,7 +60,7 @@
                         borderColor: "rgb(0,158,142)",
                         borderWidth: 2,
                         hoverBackgroundColor: "rgb(0,158,142)",
-                        hoverBorderColor: "rgb(56,65,65)",
+                        hoverBorderColor: "rgb(61, 73, 85)",
                         data: json.data2
                     }]
                 },
@@ -85,7 +87,7 @@
         })
     }
 
-    UpdateChart('/passage/week','bar','Nombre de personne dans la bibliothèque cette semaine');
+    UpdateChart('/passage/week','bar','Nombre de personnes dans la bibliothèque cette semaine');
 
 </script>
 
