@@ -12,6 +12,10 @@ app.get('/passage/more', async (req, res) => {
     res.json(await passageService.more());
 });
 
+app.get('/passage/day', async (req, res) => {
+    res.json(await passageService.day());
+});
+
 app.get('/passage/week', async (req, res) => {
     res.json(await passageService.week());
 });

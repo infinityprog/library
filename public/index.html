@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
     <meta charset="utf-8">
-    <title>HELHa - Bibliothèque</title>
+    <title>Bibliothèque - HELHa</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <link rel="icon" type="image/x-icon" href="https://up.helha.be/images/favicon.png">
+    <link  rel="stylesheet" href="/look.css">
 
 </head>
 
-<body>
-
-<img src="https://www.helha.be/app/uploads/2014/04/logo-helha.png" width="350" height="180">
+<body style="background-color:#e3e3e3;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Haute_%C3%89cole_Louvain_en_Hainaut_%28logo%29.svg/1280px-Haute_%C3%89cole_Louvain_en_Hainaut_%28logo%29.svg.png" width="486" height="180">
 
 <div style="width: 80%;">
 
-    <button onclick="UpdateChart('/passage/week','Nombre de personne dans la bibliothèque cette semaine')">
+    <a href="#" class="bouton" onclick="UpdateChart('/passage/day','line','Nombre de personne dans la bibliothèque en ce jour')">
+        Aujourd'hui
+    </a>
+    <a href="#" class="bouton" onclick="UpdateChart('/passage/week','bar','Nombre de personne dans la bibliothèque cette semaine')">
         Cette semaine
-    </button>
-    <button onclick="UpdateChart('/passage/month','Nombre de personne dans la bibliothèque ce mois')">
+    </a>
+    <a href="#" class="bouton" onclick="UpdateChart('/passage/month','bar','Nombre de personne dans la bibliothèque ce mois')">
         Ce mois
-    </button>
-    <button onclick="UpdateChart('/passage/year','Nombre de personne dans la bibliothèque cette année')">
+    </a>
+    <a href="#" class="bouton" onclick="UpdateChart('/passage/year','bar','Nombre de personne dans la bibliothèque cette année')">
         Cette année
-    </button>
-    <canvas id="myChart" width="360" height="90"></canvas>
+    </a>
+    <canvas id="myChart" width="500" height="240"></canvas>
 
 </div>
 
 <script>
     let chart;
 
-    function UpdateChart(url,title){
+    function UpdateChart(url,style,title){
         const ctx = document.getElementById('myChart').getContext('2d');
 
         // récup de donnée (requête ajax)
@@ -40,20 +43,23 @@
 
             //convert json en donnée correcte
 
+
             const chartData = {
                 // The type of chart we want to create
-                type: 'bar',
+                type: style,
                 // The data for our dataset
                 data: {
                     labels: json.labels,
                     datasets: [{
-                        label: 'Personnes',
-                        backgroundColor: "rgba(255,99,132,0.2)",
-                        borderColor: "rgba(255,99,132,1)",
+                        label: 'Nombre',
+                        pointBackgroundColor: "rgb(198,255,255)",
+                        pointBorderColor: "rgb(0,158,142)",
+                        backgroundColor: "rgb(198,255,255)",
+                        borderColor: "rgb(0,158,142)",
                         borderWidth: 2,
-                        hoverBackgroundColor: "rgba(255,99,132,0.6)",
-                        hoverBorderColor: "rgba(255,99,132,1)",
-                        data: json.data
+                        hoverBackgroundColor: "rgb(0,158,142)",
+                        hoverBorderColor: "rgb(56,65,65)",
+                        data: json.data2
                     }]
                 },
                 // Configuration options go here
@@ -67,7 +73,8 @@
                     legend: { display: false },
                     title: {
                         display: true,
-                        text: title
+                        text: title,
+                        padding: 25,
                     }
                 }
             }
@@ -78,7 +85,7 @@
         })
     }
 
-    UpdateChart('/passage/week','Nombre de personne dans la bibliothèque par semaine');
+    UpdateChart('/passage/week','bar','Nombre de personne dans la bibliothèque cette semaine');
 
 </script>
 
