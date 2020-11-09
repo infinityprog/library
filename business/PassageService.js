@@ -30,7 +30,7 @@ class PassageService {
     async week(){
         return {
             labels:['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-            data2:[28, 25, 35, 48, 20, 2, 0]
+            data2:[100, 25, 35, 48, 20, 2, 0]
         }
     }
 
