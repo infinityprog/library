@@ -8,8 +8,8 @@ const passageService = new PassageService();
 
 app.use(express.static('public'));
 
-app.get('/passage/more', async (req, res) => {
-    res.json(await passageService.more());
+app.get('/passage/more', (req, res) => {
+    res.json(passageService.more());
 });
 
 app.get('/passage/day', async (req, res) => {

@@ -1,7 +1,10 @@
 class Passage {
-    _id;
-    _day;
-    _number;
+
+
+    constructor(id, dateTime) {
+        this._id = id;
+        this._dateTime = dateTime;
+    }
 
 
     get id() {
@@ -12,12 +15,12 @@ class Passage {
         this._id = value;
     }
 
-    get day() {
-        return this._day;
+    get dateTime() {
+        return this._dateTime;
     }
 
-    set day(value) {
-        this._day = value;
+    set dateTime(value) {
+        this._dateTime = value;
     }
 
     get number() {
@@ -28,3 +31,5 @@ class Passage {
         this._number = value;
     }
 }
+
+module.exports = Passage

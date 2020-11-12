@@ -1,3 +1,4 @@
+const Passage = require("../../domain/entity/Passage");
 const {connection} = require("../../db/connection").module;
 
 class PassageDao {
@@ -24,11 +25,38 @@ class PassageDao {
         })
     }
 
+    async findDay() {
+        console.log(new Date())
+        return new Promise(resolve => {
+            connection.query('SELECT * FROM passage where date_time = $1', [new Date()], (error, result) => {
+                if (error) {
+                    console.log(error)
+                    throw error
+                }
+
+                if (result.rows.length !== 0) {
+                    let passages = [];
+                    for (let value in result.rows) {
+                        console.log(value)
+                        let passage = new Passage(value.id, value.date_time);
+                        passages.push(passage)
+                    }
+                    console.log(passages)
+                    resolve(passages);
+                }
+
+                console.log(null)
+
+                resolve(null);
+            })
+        })
+    }
+
     /**
      * <h1>Insert data today<h1>
      */
     insert() {
-        connection.query('insert into passage (day, number) values ($1, $2)', [new Date().toLocaleDateString(), 1]);
+        connection.query('insert into passage (date_time) values ($1)', [new Date()]);
     }
 
     /**

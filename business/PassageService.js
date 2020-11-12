@@ -6,44 +6,38 @@ class PassageService {
         this.passageDao = new PassageDao();
     }
 
-    async more() {
-        return this.passageDao.findNow().then(passage => {
-            console.log(passage)
-
-            if (passage === null || passage === undefined) {
-                this.passageDao.insert();
-                return 1;
-            } else {
-                this.passageDao.update(++passage.number)
-                return passage.number;
-            }
-        });
+    more() {
+        this.passageDao.insert();
     }
 
     async day(){
-        return {
-            labels:['08H00', '09H00', '10H00', '11H00', '12H00', '13H00', '14H00', '15H00', '16H00', '17H00', '18H00', '19H00', '20H00', '21H00', '22H00'],
-            data2:[0, 4, 3, 7, 2, 2, 0, 2, 4, 0, 3, 4, 0, 0, 0]
-        }
+        let data;
+        await this.passageDao.findDay()
+            .then(value => {
+                data = this.calculatePassageForEachHour(value);
+                return data;
+            })
     }
 
-    async week(){
+    week(){
         return {
             labels:['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
             data2:[100, 25, 35, 48, 20, 2, 0]
         }
     }
 
-    async month(){
+    month(){
+        let now = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
+        let lastDay = now.getDate();
         const data2 =[10,15,24,38,54,62,0,14,12];
-        const labels = Array.from({length: 31}, (_, i) => i + 1);
+        const labels = Array.from({length: lastDay}, (_, i) => i + 1);
         return {
             labels,
             data2
         }
     }
 
-    async year(){
+    year(){
         return {
             labels:['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septemrbe','Octobre','Novembre','Décembre'],
             data2:[28, 25, 35, 48, 20, 2, 0, 0, 0, 0, 0, 0]
@@ -52,6 +46,30 @@ class PassageService {
 
     findAll() {
         return this.passageDao.findAll();
+    }
+
+    calculatePassageForEachHour(passages) {
+        let hours = Array.from({length: 14}, (_, i) => i + 8);
+        let result = {
+            hour: null,
+            passage: null
+        }[hours.length]
+        for (let i = 0; i < hours.length; i++) {
+
+            for (const passage in passages) {
+                new Date().getHours()
+                if (hours[i].getHours() <= passage.dateTime.getHours() && hours[i + 1].getHours() > passage.dateTime.getHours()) {
+                    let value = result.map(value => value).filter(value => value.hour === hours[i]).find()
+                    if (value) {
+                        value.passage++;
+                    } else {
+                        result.push({hours: hours[i], passage: 1})
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 }
 
