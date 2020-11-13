@@ -11,18 +11,16 @@ class PassageService {
     }
 
     async day(){
-        let data;
-        await this.passageDao.findDay()
-            .then(value => {
-                data = this.calculatePassageForEachHour(value);
-                return data;
-            })
+        return {
+            labels:['8H - 9H', '9H - 10H', '10H - 11H', '11H - 12H', '12H - 13H', '13H - 14H', '14H - 15H', '15H - 16H', '16H - 17H', '17H - 18H'],
+            data2:[2, 4, 5, 7, 2, 0, 5, 2, 0, 5]
+        }
     }
 
     week(){
         return {
             labels:['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-            data2:[100, 25, 35, 48, 20, 2, 0]
+            data2:[50, 25, 35, 48, 20, 2, 0]
         }
     }
 
@@ -48,29 +46,6 @@ class PassageService {
         return this.passageDao.findAll();
     }
 
-    calculatePassageForEachHour(passages) {
-        let hours = Array.from({length: 14}, (_, i) => i + 8);
-        let result = {
-            hour: null,
-            passage: null
-        }[hours.length]
-        for (let i = 0; i < hours.length; i++) {
-
-            for (const passage in passages) {
-                new Date().getHours()
-                if (hours[i].getHours() <= passage.dateTime.getHours() && hours[i + 1].getHours() > passage.dateTime.getHours()) {
-                    let value = result.map(value => value).filter(value => value.hour === hours[i]).find()
-                    if (value) {
-                        value.passage++;
-                    } else {
-                        result.push({hours: hours[i], passage: 1})
-                    }
-                }
-            }
-        }
-
-        return result;
-    }
 }
 
 module.exports = PassageService;
